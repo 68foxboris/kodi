@@ -8,18 +8,49 @@
     <player name="DVDPlayer" /> placeholder for MPlayer
     <player name="PAPlayer" audio="true" />
     -->
-    <player name="E2Player" type="ExternalPlayer" audio="false" video="true">
+    <!--
+    <player name="VUE2Player" type="ExternalPlayer" audio="false" video="true">
       <filename>xbmc.helper</filename>
-      <args>--url="{1}" --owner="$PPID"</args>
+      <args>-u="{1}" -o="$PPID"</args>
+      <hidexbmc>true</hidexbmc>
+      <hideconsole>true</hideconsole>
+      <warpcursor>none</warpcursor>
+    </player>
+    -->
+     <player name="ExtEplayer3" type="Enigma2Player" audio="true" video="true">
+      <filename>kodiext</filename>
+      <args>-U "{1}" -S "{3}" -P "$PPID" -X 5002</args>
+      <filenamemeta>/tmp/kodiextin.json</filenamemeta>
+      <hidexbmc>true</hidexbmc>
+      <hideconsole>true</hideconsole>
+      <warpcursor>none</warpcursor>
+    </player>
+    
+    <player name="GstPlayer" type="Enigma2Player" audio="true" video="true">
+      <filename>kodiext</filename>
+      <args>-U "{1}" -S "{3}" -P "$PPID" -X 5001</args>
+      <filenamemeta>/tmp/kodiextin.json</filenamemeta>
+      <hidexbmc>true</hidexbmc>
+      <hideconsole>true</hideconsole>
+      <warpcursor>none</warpcursor>
+    </player>
+    
+    <player name="E2Player" type="Enigma2Player" audio="true" video="true">
+      <filename>kodiext</filename>
+      <args>-U "{1}" -S "{3}" -P "$PPID"</args>
+      <filenamemeta>/tmp/kodiextin.json</filenamemeta>
       <hidexbmc>true</hidexbmc>
       <hideconsole>true</hideconsole>
       <warpcursor>none</warpcursor>
     </player>
   </players>
 
+  <rules action="prepend">
+    <rule video="true" player="E2Player" />
+  </rules>
+
   <rules name="system rules">
-    <rule name="rtv" protocols="rtv" player="DVDPlayer" />
-    <rule name="hdhomerun/myth/mms/udp" protocols="hdhomerun|myth|cmyth|mms|mmsh|udp" player="DVDPlayer" />
+    <rule name="hdhomerun/mms/udp" protocols="hdhomerun|mms|mmsh|udp" player="DVDPlayer" />
     <rule name="lastfm/shout" protocols="lastfm|shout" player="PAPlayer" />
     <rule name="rtmp" protocols="rtmp" player="videodefaultplayer" />
 
@@ -44,6 +75,5 @@
 
     <!-- pvr radio channels should be played by dvdplayer because they need buffering -->
     <rule name="radio" filetypes="pvr" filename=".*/radio/.*" player="DVDPlayer" />
-    <rule name="dgb" filetypes="*" player="E2Player"/>
   </rules>
 </playercorefactory>
